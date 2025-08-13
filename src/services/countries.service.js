@@ -4,9 +4,22 @@ import { sortCountries } from '../utils/filters.util'
 // API base URL
 const API_BASE = 'https://restcountries.com/v3.1'
 
+const FIELDS = [
+  'cca3',
+  'name',
+  'flags',
+  'population',
+  'region',
+  'capital',
+  'languages',
+  'area',
+  'subregion',
+  'currencies',
+].join(',')
+
 // Get all countries
 export const fetchCountries = async () => {
-  const { data } = await axios.get(`${API_BASE}/all`)
+  const { data } = await axios.get(`${API_BASE}/all?fields=${FIELDS}`)
   return data
 }
 
@@ -34,8 +47,8 @@ export const filterCountries = async (searchQuery = '', regions = [], languages 
     } else {
       endpoint += '/all';
     }
-    
-    const { data } = await axios.get(endpoint);
+  const url = `${endpoint}?fields=${FIELDS}`;
+  const { data } = await axios.get(url);
     
     let filteredData = data;
     

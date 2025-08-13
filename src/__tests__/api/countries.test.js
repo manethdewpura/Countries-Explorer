@@ -16,7 +16,9 @@ describe('Countries API', () => {
 
       const result = await fetchCountries();
       expect(result).toEqual(mockData);
-      expect(axios.get).toHaveBeenCalledWith('https://restcountries.com/v3.1/all');
+      expect(axios.get).toHaveBeenCalledWith(
+        expect.stringMatching(/^https:\/\/restcountries\.com\/v3\.1\/all\?fields=.+/)
+      );
     });
   });
 
